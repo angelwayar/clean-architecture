@@ -7,20 +7,23 @@ import 'features/persons/domain/usecases/add_person.use_case.dart';
 import 'features/persons/presentation/blocs/blocs.dart';
 
 class Injector {
-  static final GetIt _instance = GetIt.I;
+  static GetIt? _instance;
+  static GetIt get getIt => _instance ??= GetIt.I;
 
   initInjector() {
-    _instance.registerLazySingleton<DbLocalServices>(
+    Injector.getIt;
+
+    getIt.registerLazySingleton<DbLocalServices>(
       () => DbLocalServicesImpl(),
     );
-    _instance.registerLazySingleton<PersonRepository>(
-      () => PersonRepositoryImpl(_instance.get<DbLocalServices>()),
+    getIt.registerLazySingleton<PersonRepository>(
+      () => PersonRepositoryImpl(getIt.get<DbLocalServices>()),
     );
-    _instance.registerFactory(
-      () => AddPersonUseCase(_instance.get<PersonRepository>()),
+    getIt.registerFactory(
+      () => AddPersonUseCase(getIt.get<PersonRepository>()),
     );
-    _instance.registerFactory(
-      () => RegisterPersonBloc(_instance.get<AddPersonUseCase>()),
+    getIt.registerFactory(
+      () => RegisterPersonBloc(getIt.get<AddPersonUseCase>()),
     );
   }
 }
