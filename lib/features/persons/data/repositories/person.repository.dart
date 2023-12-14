@@ -18,4 +18,9 @@ class PersonRepositoryImpl implements PersonRepository {
 
     await _dbLocalServices.addPerson(personModel: personModel);
   }
+
+  @override
+  Future<List<Person>> listPerson() async {
+    return await _dbLocalServices.listPerson();
+  }
 }

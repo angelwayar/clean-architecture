@@ -8,6 +8,7 @@ abstract class DbLocalServices {
   const DbLocalServices();
 
   Future<void> addPerson({required PersonModel personModel});
+  Future<List<PersonModel>> listPerson();
 }
 
 class DbLocalServicesImpl implements DbLocalServices {
@@ -20,5 +21,14 @@ class DbLocalServicesImpl implements DbLocalServices {
     persons.add(personModelJson);
 
     persons.forEach((element) => log(element.toString()));
+  }
+
+  @override
+  Future<List<PersonModel>> listPerson() async {
+    final listPerson = persons.map((p) => PersonModel.fromJson(p)).toList();
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    return listPerson;
   }
 }

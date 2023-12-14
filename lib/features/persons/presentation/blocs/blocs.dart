@@ -1,1 +1,2 @@
-export './register_person_bloc/register_person_bloc.dart';
+export './registerPerson/register_person_bloc.dart';
+export './listPerson/list_person_bloc.dart';
